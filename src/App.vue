@@ -1,17 +1,18 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <progreStatus></progreStatus>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import { calcualteSum } from './util/worker-api'
+import progreStatus from './components/Status.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    progreStatus
   }
 }
 </script>
