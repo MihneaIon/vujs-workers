@@ -61,13 +61,14 @@ function printArray(arr, size) {
 // Driver Code
 
 const quickSortMethod = () => {
-  let arr =Array(10000000)
-  .fill()
-  .map(() => Math.round(Math.random() * 10000000));
+  let arr = Array(10000000)
+    .fill()
+    .map(() => Math.round(Math.random() * 10000000));
   let n = arr.length;
-
+  const startTime = new Date();
   quickSort(arr, 0, n - 1);
-  return true
+  const endTime = new Date();
+  return Math.abs(endTime - startTime) / 1000;
 };
 
-module.exports = quickSortMethod
+module.exports = quickSortMethod;

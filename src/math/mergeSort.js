@@ -72,10 +72,12 @@ const mergeSortMethod = () => {
   var arr = Array(10000000)
     .fill()
     .map(() => Math.round(Math.random() * 10000000)); //[64, 34, 25, 12, 22, 11, 90];
-  var arr_size = arr.length;
 
+  var arr_size = arr.length;
+  const startTime = new Date();
   mergeSort(arr, 0, arr_size - 1);
-  return true
+  const endTime = new Date();
+  return Math.abs(endTime - startTime) / 1000;
 };
 
 module.exports = mergeSortMethod;

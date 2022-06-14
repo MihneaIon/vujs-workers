@@ -24,17 +24,20 @@ function bubbleSort(arr, n) {
 // }
 
 const bubbleSortMethod = () => {
-// Driver program to test above functions
-console.log("sall")
-var arr = Array(10000).fill().map(() => Math.round(Math.random() * 10000))  //[64, 34, 25, 12, 22, 11, 90];
-var n = arr.length;
-console.log("sall", n)
-// document.write("UnSorted array: \n");
-// printArray(arr, n);
+  // Driver program to test above functions
+  console.log("sall");
+  var arr = Array(10000)
+    .fill()
+    .map(() => Math.round(Math.random() * 10000)); //[64, 34, 25, 12, 22, 11, 90];
+  var n = arr.length;
+  console.log("sall", n);
+  // document.write("UnSorted array: \n");
+  // printArray(arr, n);
 
-bubbleSort(arr, n);
-return true
-}
+  const startTime = new Date();
+  bubbleSort(arr, n);
+  const endTime = new Date();
+  return Math.abs(endTime - startTime) / 1000;
+};
 
-
-module.exports = bubbleSortMethod
+module.exports = bubbleSortMethod;
