@@ -60,15 +60,18 @@ function printArray(arr, size) {
 
 // Driver Code
 
-const quickSortMethod = () => {
-  let arr = Array(10000000)
-    .fill()
-    .map(() => Math.round(Math.random() * 10000000));
-  let n = arr.length;
+const quickSortMethod = (numbers) => {
+  let n = numbers.length;
   const startTime = new Date();
-  quickSort(arr, 0, n - 1);
+  quickSort(numbers, 0, n - 1);
   const endTime = new Date();
-  return Math.abs(endTime - startTime) / 1000;
+  const object = {
+    start: startTime,
+    end: endTime,
+    difference: Math.abs(endTime - startTime) / 1000,
+    done: true,
+  };
+  return object;
 };
 
 module.exports = quickSortMethod;

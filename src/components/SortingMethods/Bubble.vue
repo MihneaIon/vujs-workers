@@ -22,13 +22,18 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { doBubbleSort } from "../../util/worker-api";
-import { getDate } from "../../util/formatDate";
+import { getTime } from "../../util/formatDate";
 
 export default {
+  props: {
+    numbers: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       interval1: {},
-      value1: false,
       isLoading: true,
       startTime: {},
       endTime: {},
@@ -39,52 +44,30 @@ export default {
     clearInterval(this.interval1);
   },
   watch: {
-    value1() {
-      this.isLoading = false;
+    numbers(newValue) {
+      this.numbers = newValue;
+      this.isLoading = true;
+      this.postMessage();
     },
   },
   computed: {
-    ...mapGetters([
-      "getStartTimeBubbleSort",
-      "getEndTimeBubbleSort",
-      "getStartTimeMergeSort",
-      "getEndTimeMergeSort",
-      "getStartTimeQuickSort",
-      "getEndTimeQuickSort",
-      "getStartTimeHeapSort",
-      "getEndTimeHeapSort",
-    ]),
+    ...mapGetters(["getStartTimeBubbleSort", "getEndTimeBubbleSort"]),
   },
   mounted() {
     console.log("bubble start");
     this.postMessage();
   },
   methods: {
-    ...mapMutations([
-      "setStartTimeBubbleSort",
-      "setEndTimeBubbleSort",
-      "setStartTimeMergeSort",
-      "setEndTimeMergeSort",
-      "setStartTimeQuickSort",
-      "setEndTimeQuickSort",
-      "setStartTimeHeapSort",
-      "setEndTimeHeapSort",
-    ]),
+    ...mapMutations(["setStartTimeBubbleSort", "setEndTimeBubbleSort"]),
     async postMessage() {
-      this.startTime = getDate();
-      this.setStartTimeBubbleSort(this.startTime.date);
-      const result = await doBubbleSort();
-      this.value1 = result;
-      this.endTime = getDate();
-      this.setEndTimeBubbleSort(this.endTime.date);
-      this.difference =
-        Math.abs(this.endTime.date - this.startTime.date) / 1000;
-      console.log("!!!", this.difference);
-      console.log("Bubble sort is done", result);
+      const result = await doBubbleSort(this.numbers);
+      this.difference = result.difference;
+      this.startTime = getTime(result.start);
+      this.endTime = getTime(result.end);
+      this.isLoading = false;
+      console.log("Bubble sort is done");
+      this.$emit("buubleResult", result);
     },
-    onClickEvent(event){
-      this.$emit('clicked', 'ceva')
-    }
   },
 };
 </script>

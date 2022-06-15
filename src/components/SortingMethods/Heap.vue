@@ -22,13 +22,18 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { doHeapSort } from "../../util/worker-api";
-import { getDate } from "../../util/formatDate";
+import { getTime } from "../../util/formatDate";
 
 export default {
+  props: {
+    numbers: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       interval4: {},
-      value4: false,
       isLoading: true,
       startTime: {},
       endTime: {},
@@ -39,8 +44,10 @@ export default {
     clearInterval(this.interval4);
   },
   watch: {
-    value4() {
-      this.isLoading = false;
+    numbers(newValue) {
+      this.numbers = newValue;
+      this.isLoading = true;
+      this.postMessage();
     },
   },
   computed: {
@@ -53,15 +60,13 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeHeapSort", "setEndTimeHeapSort"]),
     async postMessage() {
-      this.startTime = getDate();
-      this.setStartTimeHeapSort(this.startTime.date);
-      const result = await doHeapSort();
-      this.value4 = result;
-      this.endTime = getDate();
-      this.setEndTimeHeapSort(this.endTime.date);
-      this.difference =
-        Math.abs(this.endTime.date - this.startTime.date) / 1000;
-      console.log("Heap sort is done", result);
+      const result = await doHeapSort(this.numbers);
+      this.difference = result.difference;
+      this.startTime = getTime(result.start);
+      this.endTime = getTime(result.end);
+      this.isLoading = false;
+      console.log("Heap sort is done");
+      this.$emit("heapResult", result);
     },
   },
 };

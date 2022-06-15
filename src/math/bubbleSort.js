@@ -16,28 +16,24 @@ function bubbleSort(arr, n) {
   }
 }
 
-/* Function to print an array */
-// function printArray(arr, size) {
-//   var i;
-//   for (i = 0; i < size; i++) document.write(arr[i] + " ");
-//   document.write("\n");
-// }
-
-const bubbleSortMethod = () => {
+const bubbleSortMethod = (numbers) => {
   // Driver program to test above functions
-  console.log("sall");
   var arr = Array(10000)
     .fill()
     .map(() => Math.round(Math.random() * 10000)); //[64, 34, 25, 12, 22, 11, 90];
+
   var n = arr.length;
-  console.log("sall", n);
-  // document.write("UnSorted array: \n");
-  // printArray(arr, n);
 
   const startTime = new Date();
   bubbleSort(arr, n);
   const endTime = new Date();
-  return Math.abs(endTime - startTime) / 1000;
+  const object = {
+    start: startTime,
+    end: endTime,
+    difference: Math.abs(endTime - startTime) / 1000,
+    done: true,
+  };
+  return object;
 };
 
 module.exports = bubbleSortMethod;
