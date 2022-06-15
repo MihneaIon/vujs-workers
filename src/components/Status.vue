@@ -111,7 +111,6 @@ export default {
         .fill()
         .map(() => Math.round(Math.random() * 1000000));
       this.arrayOfRandomNumbers = [...newArray];
-      console.log("After", this.arrayOfRandomNumbers);
     },
     bubbleComputationDone(value) {
       this.bubbleIsDone = value;
