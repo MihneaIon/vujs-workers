@@ -22,13 +22,19 @@
 <script>
 import { doMergeSort } from "../../util/worker-api";
 import { mapGetters, mapMutations } from "vuex";
-import { getDate } from "../../util/formatDate";
+import { getTime } from "../../util/formatDate";
 
 export default {
+  props: {
+    numbers: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       interval2: {},
-      value2: false,
+      value2: {},
       isLoading: true,
       startTime: {},
       endTime: {},
@@ -39,8 +45,10 @@ export default {
     clearInterval(this.interval2);
   },
   watch: {
-    value2() {
-      this.isLoading = false;
+    numbers(newValue) {
+      this.numbers = newValue;
+      this.isLoading = true;
+      this.postMessage();
     },
   },
   computed: {
@@ -53,15 +61,13 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeMergeSort", "setEndTimeMergeSort"]),
     async postMessage() {
-      this.startTime = getDate();
-      this.setStartTimeMergeSort(this.startTime.date);
-      const result = await doMergeSort();
-      this.value2 = result;
-      this.endTime = getDate();
-      this.setEndTimeMergeSort(this.endTime.date);
-      this.difference =
-        Math.abs(this.endTime.date - this.startTime.date) / 1000;
-      console.log("Merge sort is done", result);
+      const result = await doMergeSort(this.numbers);
+      this.difference = result.difference;
+      this.startTime = getTime(result.start);
+      this.endTime = getTime(result.end);
+      this.isLoading = false;
+      console.log("Merge sort is done");
+      this.$emit("mergeResult", result);
     },
   },
 };

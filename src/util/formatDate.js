@@ -1,16 +1,15 @@
-const getDate = () => {
-  const currentDate = new Date();
+const getTime = (longDate) => {
   const displayedDate =
-    currentDate.getHours() +
+    longDate.getHours() +
     ":" +
-    currentDate.getMinutes() +
+    longDate.getMinutes() +
     ":" +
-    currentDate.getSeconds();
+    longDate.getSeconds();
   const startDate = {
-    date: currentDate,
+    date: longDate,
     dateDispaly: displayedDate,
   };
   return startDate;
 };
 
-module.exports = { getDate };
+module.exports = { getTime };

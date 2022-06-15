@@ -68,16 +68,18 @@ function printArray(A, size) {
   for (var i = 0; i < size; i++) document.write(A[i] + " ");
 }
 
-const mergeSortMethod = () => {
-  var arr = Array(10000000)
-    .fill()
-    .map(() => Math.round(Math.random() * 10000000)); //[64, 34, 25, 12, 22, 11, 90];
-
-  var arr_size = arr.length;
+const mergeSortMethod = (numbers) => {
+  var arr_size = numbers.length;
   const startTime = new Date();
-  mergeSort(arr, 0, arr_size - 1);
+  mergeSort(numbers, 0, arr_size - 1);
   const endTime = new Date();
-  return Math.abs(endTime - startTime) / 1000;
+  const object = {
+    start: startTime,
+    end: endTime,
+    difference: Math.abs(endTime - startTime) / 1000,
+    done: true,
+  };
+  return object;
 };
 
 module.exports = mergeSortMethod;

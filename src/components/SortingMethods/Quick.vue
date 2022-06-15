@@ -22,25 +22,29 @@
 <script>
 import { doQuickSort } from "../../util/worker-api";
 import { mapGetters, mapMutations } from "vuex";
-import { getDate } from "../../util/formatDate";
+import { getTime } from "../../util/formatDate";
 
 export default {
+  props: {
+    numbers: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      interval2: {},
-      value2: false,
       isLoading: true,
       startTime: {},
       endTime: {},
       difference: "",
     };
   },
-  beforeDestroy() {
-    clearInterval(this.interval2);
-  },
+  beforeDestroy() {},
   watch: {
-    value2() {
-      this.isLoading = false;
+    numbers(newValue) {
+      this.numbers = newValue;
+      this.isLoading = true;
+      this.postMessage();
     },
   },
   computed: {
@@ -53,15 +57,13 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeQuickSort", "setEndTimeQuickSort"]),
     async postMessage() {
-      this.startTime = getDate();
-      this.setStartTimeQuickSort(this.startTime.date);
-      const result = await doQuickSort();
-      this.value2 = result;
-      this.endTime = getDate();
-      this.setEndTimeQuickSort(this.endTime.date);
-      this.difference =
-        Math.abs(this.endTime.date - this.startTime.date) / 1000;
-      console.log("Quick sort is done", result);
+      const result = await doQuickSort(this.numbers);
+      this.difference = result.difference;
+      this.startTime = getTime(result.start);
+      this.endTime = getTime(result.end);
+      this.isLoading = false;
+      console.log("Quick sort is done");
+      this.$emit("quickResult", result);
     },
   },
 };

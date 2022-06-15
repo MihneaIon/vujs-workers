@@ -2,14 +2,13 @@ import Worker from "worker-loader!./worker";
 import * as Comlink from "comlink";
 
 let workersList = [];
-let mySet1 = new Set();
 
 for (let i = 0; i < window.navigator.hardwareConcurrency; i++) {
   let newWorker = {
     worker: Comlink.wrap(new Worker()),
     inUse: false,
     number: i,
-    taskAssigned: 0
+    taskAssigned: 0,
   };
   workersList.push(newWorker);
 }
@@ -20,65 +19,77 @@ var takeRandomWorker = () => {
 
 //-----Bubble Sort-----
 
-const checkAvailabilityForBubbleSort = () => {
+const checkAvailabilityForBubbleSort = async (numbers) => {
   const worker = takeRandomWorker();
-  mySet1.add(worker);
-  //   numberArray.add(worker)
-  console.log("Worker used: ", worker.number);
+  console.log("Worker used bubble: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
-    return worker.worker.sortingWithBubbles;
+    const bubbleResponse = await worker.worker.sortingWithBubbles(numbers);
+    worker.inUse = false;
+    return bubbleResponse;
   }
 };
 
-const doBubbleSort = checkAvailabilityForBubbleSort();
+const doBubbleSort = (numbers) => checkAvailabilityForBubbleSort(numbers);
 
 //-----Merge Sort-----
 
-const checkAvailabilityForMergeSort = () => {
+const checkAvailabilityForMergeSort = async (numbers) => {
   let worker = takeRandomWorker();
-  while (worker.inUse){
+  while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used: ", worker.number);
+  console.log("Worker used merge: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
-    return worker.worker.sortingWithMerge;
+    const mergeResponse = await worker.worker.sortingWithMerge(numbers);
+    worker.inUse = false;
+    return mergeResponse;
   }
 };
 
-const doMergeSort = checkAvailabilityForMergeSort();
+const doMergeSort = (numbers) => checkAvailabilityForMergeSort(numbers);
 
 //-----Quick Sort-----
 
-const checkAvailabilityForQuickSort = () => {
+const checkAvailabilityForQuickSort = async (numbers) => {
   let worker = takeRandomWorker();
-  while (worker.inUse){
+  while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used: ", worker.number);
+  console.log("Worker used quick: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
-    return worker.worker.sortingWithQuick;
+    const quickResponse = await worker.worker.sortingWithQuick(numbers);
+    worker.inUse = false;
+    return quickResponse;
   }
 };
 
-const doQuickSort = checkAvailabilityForQuickSort();
+const doQuickSort = (numbers) => checkAvailabilityForQuickSort(numbers);
 
 //-----Heap Sort-----
 
-const checkAvailabilityForHeapSort = () => {
+const checkAvailabilityForHeapSort = async (numbers) => {
   let worker = takeRandomWorker();
-  while (worker.inUse){
+  while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used: ", worker.number);
-  if (worker.inUse == false ) {
+  console.log("Worker used heap: ", worker.number);
+  if (worker.inUse == false) {
     worker.inUse = true;
-    return worker.worker.sortingWithHeap;
+    const heapResponse = await worker.worker.sortingWithHeap(numbers);
+    worker.inUse = false;
+    return heapResponse;
   }
 };
 
-const doHeapSort = checkAvailabilityForHeapSort();
+const doHeapSort = (numbers) => checkAvailabilityForHeapSort(numbers);
 
-export { doBubbleSort, doMergeSort, doQuickSort, doHeapSort };
+const freeWorkers = () => {
+  workersList.forEach((element) => {
+    element.worker.terminate();
+  });
+};
+
+export { doBubbleSort, doMergeSort, doQuickSort, doHeapSort, freeWorkers };

@@ -19,27 +19,23 @@ const sum = {
 };
 
 const sortMethods = {
-  sortingWithBubbles() {
+  sortingWithBubbles(numbers) {
     console.log("Bubble Sort is starting")
-    bubbleSort();
-    return true
+    return bubbleSort(numbers);
   },
-  sortingWithMerge() {
+  sortingWithMerge(numbers) {
     console.log("Merge Sort is starting")
-    mergeSort();
-    return true
+    return mergeSort(numbers);
+    
   },
-  sortingWithQuick() {
+  sortingWithQuick(numbers) {
     console.log("Quick Sort is starting")
-    quickSort();
-    return true
+    return quickSort(numbers);
   },
-  sortingWithHeap(){
+  sortingWithHeap(numbers){
     console.log("Heap Sort is starting")
-    heapSort();
-    return true
+    return heapSort(numbers);
   },
 };
 
-// Comlink.expose(sum);
 Comlink.expose(sortMethods);

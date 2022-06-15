@@ -39,23 +39,17 @@ function heapify(arr, n, i) {
     heapify(arr, n, largest);
   }
 }
-
-/* A utility function to print array of size n */
-// function printArray(arr)
-// {
-//     var n = arr.length;
-//     for (var i = 0; i < n; ++i)
-//         document.write(arr[i] + " ");
-
-// }
-const heapSortMethod = () => {
-  var arr = Array(1000000)
-    .fill()
-    .map(() => Math.round(Math.random() * 1000000));
-  var n = arr.length;
-
-  sort(arr);
-  return true;
+const heapSortMethod = (numbers) => {
+  const startTime = new Date();
+  sort(numbers);
+  const endTime = new Date();
+  const object = {
+    start: startTime,
+    end: endTime,
+    difference: Math.abs(endTime - startTime) / 1000,
+    done: true,
+  };
+  return object;
 };
 
-module.exports = heapSortMethod
+module.exports = heapSortMethod;

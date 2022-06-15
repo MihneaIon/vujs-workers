@@ -1,34 +1,36 @@
 const state = {
-    workers: [],
-    selectedWorker: [],
-    startComputation: false,
+  workers: [],
+  selectedWorker: [],
+  arrayDimension: 0,
+  startComputation: false,
 };
 
-
 const getters = {
-    workers: (state) => state.workers,
-    selectedWorker: (state) => state.selectedWorker,
-    getStartComputation: (state) => state.startComputation,
-}
+  workers: (state) => state.workers,
+  selectedWorker: (state) => state.selectedWorker,
+  getStartComputation: (state) => state.startComputation,
+  getArrayDimension: (state) => state.arrayDimension,
+};
 
 const mutations = {
-    setWorkers(state, result){
-        state.workers = result
-    },
+  setWorkers(state, result) {
+    state.workers = result;
+  },
 
-    setStartComutation(state, result){
-        state.startComputation = result
-    }
-}
+  setStartComutation(state, result) {
+    state.startComputation = result;
+  },
 
-const actions = {
-    
-}
+  setArrayDimension(state, result) {
+    state.arrayDimension = result;
+  },
+};
 
+const actions = {};
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations,
+  state,
+  getters,
+  actions,
+  mutations,
 };
