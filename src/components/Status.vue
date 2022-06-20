@@ -1,8 +1,9 @@
 <template>
   <div class="text-center">
-    <div>
+    <div class="sorts-container">
+      <!-- <div v-if="ready">Is Loading....</div> -->
       <v-row class="custom-row mx-auto" align="center" justify="space-around">
-        <v-card class="mx-auto" outlined>
+        <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Buuble Sort </v-card-title>
           <Bubble
             :numbers="arrayOfRandomNumbers"
@@ -10,7 +11,7 @@
             @buubleResult="bubbleComputationDone"
           ></Bubble>
         </v-card>
-        <v-card class="mx-auto" outlined>
+        <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Merge Sort </v-card-title>
           <Merge
             :numbers="arrayOfRandomNumbers"
@@ -18,7 +19,7 @@
             @mergeResult="mergeComputationDone"
           ></Merge>
         </v-card>
-        <v-card class="mx-auto" outlined>
+        <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Quick Sort </v-card-title>
           <Quick
             :numbers="arrayOfRandomNumbers"
@@ -26,7 +27,7 @@
             @quickResult="quickComputationDone"
           ></Quick>
         </v-card>
-        <v-card class="mx-auto" outlined>
+        <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Heap Sort </v-card-title>
           <Heap
             :numbers="this.arrayOfRandomNumbers"
@@ -34,12 +35,9 @@
             @heapResult="heapComputationDone"
           ></Heap>
         </v-card>
-        <!-- <div v-if="ready">Test</div> -->
       </v-row>
     </div>
-
-    <button class="title" @click="start()">send message</button>
-    <button class="title" @click="generateNewArray()">refresh message</button>
+    <v-btn class="title" @click="start()">Start Computation</v-btn>
     <div>
       {{ time }}
     </div>
@@ -61,26 +59,24 @@ export default {
   data() {
     return {
       arrayOfRandomNumbers: [],
-      startorting: false,
       time: new Date(),
       bubbleIsDone: false,
       mergeIsDone: false,
       quickIsDone: false,
       heapIsDone: false,
+
     };
   },
   beforeDestroy() {},
   computed: {
     ...mapGetters(["getStartComputation", "getArrayDimension"]),
     ready() {
-      // if (
-      //   this.bubbleIsDone &&
-      //   this.mergeIsDone &&
-      //   this.quickIsDone &&
-      //   this.heapIsDone
-      // ){
-      //   freeWorkers();
-      // }
+      return (
+        this.bubbleIsDone &&
+        this.mergeIsDone &&
+        this.quickIsDone &&
+        this.heapIsDone
+      );
     },
   },
   watch: {},
@@ -92,25 +88,12 @@ export default {
   methods: {
     ...mapMutations(["setStartComutation", "setArrayDimension"]),
     start() {
+      this.isComputation = true;
       const newArray = Array(1000000)
         .fill()
         .map(() => Math.round(Math.random() * 1000000));
       this.arrayOfRandomNumbers = [...newArray];
       this.setStartComutation(true);
-      this.startorting = true;
-      console.log(this.startorting);
-    },
-    recalculate() {
-      this.keyQuick++;
-      this.keyBubble++;
-      this.keyMerge++;
-      this.keyHeap++;
-    },
-    generateNewArray() {
-      const newArray = Array(1000000)
-        .fill()
-        .map(() => Math.round(Math.random() * 1000000));
-      this.arrayOfRandomNumbers = [...newArray];
     },
     bubbleComputationDone(value) {
       this.bubbleIsDone = value;
@@ -133,7 +116,7 @@ export default {
   margin: 1rem;
 }
 .custom-row {
-  margin: 5% !important;
+  margin: 2% !important;
 }
 .custom-button {
   margin: 5% !important;
@@ -142,5 +125,14 @@ export default {
   margin: 2%;
   border: thin solid #00bfaf;
   border-radius: 20%;
+}
+.sorts-container{
+border: 5px solid #00bfaf;
+display: flex;
+justify-content: center;
+padding: 5px 0;
+}
+.sort-card{
+  margin: 1%;
 }
 </style>
