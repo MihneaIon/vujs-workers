@@ -1,7 +1,6 @@
 <template>
   <div class="text-center">
     <div class="sorts-container">
-      <!-- <div v-if="ready">Is Loading....</div> -->
       <v-row class="custom-row mx-auto" align="center" justify="space-around">
         <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Buuble Sort </v-card-title>
@@ -37,7 +36,8 @@
         </v-card>
       </v-row>
     </div>
-    <v-btn class="title" @click="start()">Start Computation</v-btn>
+    <div v-if="ready"></div>
+    <v-btn :disabled="!isValidPress" class="title" @click="start()">Start Computation</v-btn>
     <div>
       {{ time }}
     </div>
@@ -64,6 +64,7 @@ export default {
       mergeIsDone: false,
       quickIsDone: false,
       heapIsDone: false,
+      isValidPress: true,
 
     };
   },
@@ -71,15 +72,20 @@ export default {
   computed: {
     ...mapGetters(["getStartComputation", "getArrayDimension"]),
     ready() {
-      return (
+      if (
         this.bubbleIsDone &&
         this.mergeIsDone &&
         this.quickIsDone &&
         this.heapIsDone
-      );
+      ){
+        this.isValidPress = true;
+        return true
+      }
+      return false
     },
   },
-  watch: {},
+  watch: {
+  },
   mounted() {
     setInterval(() => {
       this.time = new Date();
@@ -94,6 +100,7 @@ export default {
         .map(() => Math.round(Math.random() * 1000000));
       this.arrayOfRandomNumbers = [...newArray];
       this.setStartComutation(true);
+      this.isValidPress = false
     },
     bubbleComputationDone(value) {
       this.bubbleIsDone = value;
