@@ -46,7 +46,6 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { freeWorkers } from "../util/worker-api";
 
 export default {
   components: {
@@ -78,6 +77,7 @@ export default {
         this.quickIsDone &&
         this.heapIsDone
       ){
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.isValidPress = true;
         return true
       }
@@ -94,6 +94,9 @@ export default {
   methods: {
     ...mapMutations(["setStartComutation", "setArrayDimension"]),
     start() {
+      if (this.getStartComputation){
+        this.resetInitialForm();
+      }
       this.isComputation = true;
       const newArray = Array(1000000)
         .fill()
@@ -114,6 +117,13 @@ export default {
     heapComputationDone(value) {
       this.heapIsDone = value;
     },
+    resetInitialForm(){
+      this.bubbleIsDone = false;
+      this.mergeIsDone = false;
+      this.quickIsDone = false;
+      this.heapIsDone = false;
+      this.isValidPress = false;
+    }
   },
 };
 </script>
@@ -134,7 +144,6 @@ export default {
   border-radius: 20%;
 }
 .sorts-container{
-border: 5px solid #00bfaf;
 display: flex;
 justify-content: center;
 padding: 5px 0;
