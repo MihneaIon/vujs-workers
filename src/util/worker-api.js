@@ -2,8 +2,11 @@ import Worker from "worker-loader!./worker";
 import * as Comlink from "comlink";
 
 let workersList = [];
+// let workersSimpleList = [];
 
 for (let i = 0; i < window.navigator.hardwareConcurrency; i++) {
+  // let simpleWorker = new Worker()
+  // workersSimpleList.push(simpleWorker)
   let newWorker = {
     worker: Comlink.wrap(new Worker()),
     inUse: false,
@@ -21,7 +24,7 @@ var takeRandomWorker = () => {
 
 const checkAvailabilityForBubbleSort = async (numbers) => {
   const worker = takeRandomWorker();
-  console.log("Worker used bubble: ", worker.number);
+  console.log("Worker used for bubble: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
     const bubbleResponse = await worker.worker.sortingWithBubbles(numbers);
@@ -39,7 +42,7 @@ const checkAvailabilityForMergeSort = async (numbers) => {
   while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used merge: ", worker.number);
+  console.log("Worker used for merge: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
     const mergeResponse = await worker.worker.sortingWithMerge(numbers);
@@ -57,7 +60,7 @@ const checkAvailabilityForQuickSort = async (numbers) => {
   while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used quick: ", worker.number);
+  console.log("Worker used for quick: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
     const quickResponse = await worker.worker.sortingWithQuick(numbers);
@@ -75,7 +78,7 @@ const checkAvailabilityForHeapSort = async (numbers) => {
   while (worker.inUse) {
     worker = takeRandomWorker();
   }
-  console.log("Worker used heap: ", worker.number);
+  console.log("Worker used for heap: ", worker.number);
   if (worker.inUse == false) {
     worker.inUse = true;
     const heapResponse = await worker.worker.sortingWithHeap(numbers);

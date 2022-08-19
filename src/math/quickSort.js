@@ -6,9 +6,9 @@ function swap(arr, i, j) {
 }
 
 /* This function takes last element as pivot, places
-   the pivot element at its correct position in sorted
-   array, and places all smaller (smaller than pivot)
-   to left of pivot and all greater elements to right
+  the pivot element at its correct position in sorted
+  array, and places all smaller (smaller than pivot)
+  to left of pivot and all greater elements to right
    of pivot */
 function partition(arr, low, high) {
   // pivot
@@ -52,11 +52,11 @@ function quickSort(arr, low, high) {
 }
 
 // Function to print an array
-function printArray(arr, size) {
-  for (let i = 0; i < size; i++) document.write(arr[i] + " ");
+// function printArray(arr, size) {
+//   for (let i = 0; i < size; i++) document.write(arr[i] + " ");
 
-  document.write("<br>");
-}
+//   document.write("<br>");
+// }
 
 // Driver Code
 

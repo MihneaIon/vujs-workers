@@ -5,14 +5,14 @@ function sort(arr) {
   for (var i = Math.floor(n / 2) - 1; i >= 0; i--) heapify(arr, n, i);
 
   // One by one extract an element from heap
-  for (var i = n - 1; i > 0; i--) {
+  for (var idex = n - 1; idex > 0; idex--) {
     // Move current root to end
     var temp = arr[0];
-    arr[0] = arr[i];
-    arr[i] = temp;
+    arr[0] = arr[idex];
+    arr[idex] = temp;
 
     // call max heapify on the reduced heap
-    heapify(arr, i, 0);
+    heapify(arr, idex, 0);
   }
 }
 

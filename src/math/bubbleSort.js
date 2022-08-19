@@ -16,7 +16,7 @@ function bubbleSort(arr, n) {
   }
 }
 
-const bubbleSortMethod = (numbers) => {
+const bubbleSortMethod = () => {
   // Driver program to test above functions
   var arr = Array(10000)
     .fill()

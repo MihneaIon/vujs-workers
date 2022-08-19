@@ -98,15 +98,16 @@ export default {
         this.resetInitialForm();
       }
       this.isComputation = true;
-      const newArray = Array(1000000)
+      const newArray = Array(10000000)
         .fill()
-        .map(() => Math.round(Math.random() * 1000000));
+        .map(() => Math.round(Math.random() * 10000000));
       this.arrayOfRandomNumbers = [...newArray];
       this.setStartComutation(true);
       this.isValidPress = false
     },
     bubbleComputationDone(value) {
       this.bubbleIsDone = value;
+      // debugger;
     },
     mergeComputationDone(value) {
       this.mergeIsDone = value;
@@ -133,7 +134,7 @@ export default {
   margin: 1rem;
 }
 .custom-row {
-  margin: 2% !important;
+  margin-left: 20% !important;
 }
 .custom-button {
   margin: 5% !important;

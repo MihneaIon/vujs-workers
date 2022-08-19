@@ -7,8 +7,8 @@ function merge(arr, l, m, r) {
   var R = new Array(n2);
 
   // Copy data to temp arrays L[] and R[]
-  for (var i = 0; i < n1; i++) L[i] = arr[l + i];
-  for (var j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+  for (var indexi = 0; indexi < n1; indexi++) L[indexi] = arr[l + indexi];
+  for (var indexj = 0; indexj < n2; indexj++) R[indexj] = arr[m + 1 + indexj];
 
   // Merge the temp arrays back into arr[l..r]
 
@@ -64,9 +64,9 @@ function mergeSort(arr, l, r) {
 
 // UTILITY FUNCTIONS
 // Function to print an array
-function printArray(A, size) {
-  for (var i = 0; i < size; i++) document.write(A[i] + " ");
-}
+// function printArray(A, size) {
+//   for (var i = 0; i < size; i++) document.write(A[i] + " ");
+// }
 
 const mergeSortMethod = (numbers) => {
   var arr_size = numbers.length;

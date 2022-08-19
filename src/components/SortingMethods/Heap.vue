@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-progress-circular
+    <!-- <v-progress-circular
       v-show="isLoading"
       indeterminate
       color="primary"
@@ -15,7 +15,10 @@
         <v-chip>Difference : {{ difference }} sec </v-chip>
       </v-chip-group>
       <div class="my-4 text-subtitle-1">...</div>
-    </v-card-text>
+    </v-card-text> -->
+
+  <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
+
   </div>
 </template>
 
@@ -25,6 +28,11 @@ import { doHeapSort } from "../../util/worker-api";
 import { getTime } from "../../util/formatDate";
 
 export default {
+
+  components: {
+    Card: () => import("../Card.vue"),
+},
+
   props: {
     numbers: {
       type: Array,
@@ -37,15 +45,14 @@ export default {
       isLoading: true,
       startTime: {},
       endTime: {},
-      difference: "",
+      difference: 0,
     };
   },
   beforeDestroy() {
     clearInterval(this.interval4);
   },
   watch: {
-    numbers(newValue) {
-      this.numbers = newValue;
+    numbers() {
       this.isLoading = true;
       this.postMessage();
     },
@@ -63,6 +70,7 @@ export default {
       const result = await doHeapSort(this.numbers);
       this.difference = result.difference;
       this.startTime = getTime(result.start);
+      console.log('difference', typeof(this.difference));
       this.endTime = getTime(result.end);
       this.isLoading = false;
       console.log("Heap sort is done");
