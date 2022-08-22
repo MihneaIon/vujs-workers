@@ -50,7 +50,8 @@ export default {
   },
   watch: {
     numbers(newValue) {
-      this.numbers = newValue;
+      console.log('newVal merge', typeof(newValue))
+      // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-progress-circular
+    <!-- <v-progress-circular
       v-show="isLoading"
       indeterminate
       color="primary"
@@ -15,7 +15,10 @@
         <v-chip>Difference : {{ difference }} sec</v-chip>
       </v-chip-group>
       <div class="my-4 text-subtitle-1">...</div>
-    </v-card-text>
+    </v-card-text> -->
+
+  <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
+
   </div>
 </template>
 
@@ -25,6 +28,11 @@ import { doBubbleSort } from "../../util/worker-api";
 import { getTime } from "../../util/formatDate";
 
 export default {
+
+  components: {
+    Card: () => import("../Card.vue"),
+  },
+
   props: {
     numbers: {
       type: Array,
@@ -37,7 +45,7 @@ export default {
       isLoading: true,
       startTime: {},
       endTime: {},
-      difference: "",
+      difference: 0,
     };
   },
   beforeDestroy() {
@@ -45,7 +53,8 @@ export default {
   },
   watch: {
     numbers(newValue) {
-      this.numbers = newValue;
+      console.log('newVal', typeof(newValue))
+      // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
     },
