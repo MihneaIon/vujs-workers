@@ -4,19 +4,19 @@ import mergeSort from "@/math/mergeSort";
 import quickSort from "@/math/quickSort";
 import heapSort from "@/math/heapSort"
 
-const sum = {
-  toUpperCase(msg) {
-    return msg.toUpperCase();
-  },
-  doHardWork() {
-    let i = 0;
-    while (i < 9000000000) {
-      i++;
-    }
-    return i;
-  },
-  calculateDistanceToOhio() {},
-};
+// const sum = {
+//   toUpperCase(msg) {
+//     return msg.toUpperCase();
+//   },
+//   doHardWork() {
+//     let i = 0;
+//     while (i < 9000000000) {
+//       i++;
+//     }
+//     return i;
+//   },
+//   calculateDistanceToOhio() {},
+// };
 
 const sortMethods = {
   sortingWithBubbles(numbers) {

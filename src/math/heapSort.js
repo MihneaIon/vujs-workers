@@ -40,6 +40,10 @@ function heapify(arr, n, i) {
   }
 }
 const heapSortMethod = (numbers) => {
+  const newArray = Array(10000000)
+        .fill()
+        .map(() => Math.round(Math.random() * 10000000));
+  numbers = newArray;
   const startTime = new Date();
   sort(numbers);
   const endTime = new Date();

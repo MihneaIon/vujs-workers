@@ -69,6 +69,10 @@ function printArray(A, size) {
 }
 
 const mergeSortMethod = (numbers) => {
+  const newArray = Array(10000000)
+        .fill()
+        .map(() => Math.round(Math.random() * 10000000));
+  numbers = newArray;
   var arr_size = numbers.length;
   const startTime = new Date();
   mergeSort(numbers, 0, arr_size - 1);

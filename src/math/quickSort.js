@@ -61,6 +61,10 @@ function printArray(arr, size) {
 // Driver Code
 
 const quickSortMethod = (numbers) => {
+  const newArray = Array(1000000)
+        .fill()
+        .map(() => Math.round(Math.random() * 1000000));
+  numbers = newArray;
   let n = numbers.length;
   const startTime = new Date();
   quickSort(numbers, 0, n - 1);
