@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <div class="sorts-container">
+    <div class="sorts-container text-center">
       <v-row class="custom-row mx-auto" align="center" justify="space-around">
         <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Buuble Sort </v-card-title>
@@ -64,6 +64,7 @@ export default {
       quickIsDone: false,
       heapIsDone: false,
       isValidPress: true,
+      numberOfNumbers: 0
 
     };
   },
@@ -133,7 +134,8 @@ export default {
   margin: 1rem;
 }
 .custom-row {
-  margin: 2% !important;
+  margin: 2rem !important;
+
 }
 .custom-button {
   margin: 5% !important;

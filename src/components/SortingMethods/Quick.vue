@@ -46,7 +46,8 @@ export default {
   beforeDestroy() {},
   watch: {
     numbers(newValue) {
-      this.numbers = newValue;
+      console.log('newVal', typeof(newValue))
+      // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
     },
