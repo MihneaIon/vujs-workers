@@ -18,9 +18,9 @@ function bubbleSort(arr, n) {
 
 const bubbleSortMethod = (numbers) => {
   // Driver program to test above functions
-  var arr = Array(10000)
+  var arr = Array(Number(numbers))
     .fill()
-    .map(() => Math.round(Math.random() * 10000)); //[64, 34, 25, 12, 22, 11, 90];
+    .map(() => Math.round(Math.random() * Number(numbers))); //[64, 34, 25, 12, 22, 11, 90];
 
   var n = arr.length;
 

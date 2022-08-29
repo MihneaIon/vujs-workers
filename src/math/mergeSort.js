@@ -64,16 +64,16 @@ function mergeSort(arr, l, r) {
 
 // UTILITY FUNCTIONS
 // Function to print an array
-function printArray(A, size) {
-  for (var i = 0; i < size; i++) document.write(A[i] + " ");
-}
+// function printArray(A, size) {
+//   for (var i = 0; i < size; i++) document.write(A[i] + " ");
+// }
 
 const mergeSortMethod = (numbers) => {
-  const newArray = Array(1000000)
+  const newArray = Array(Number(numbers))
         .fill()
-        .map(() => Math.round(Math.random() * 1000000));
+        .map(() => Math.round(Math.random() * Number(numbers)));
   numbers = newArray;
-  var arr_size = numbers.length;
+  var arr_size = newArray.length;
   const startTime = new Date();
   mergeSort(numbers, 0, arr_size - 1);
   const endTime = new Date();

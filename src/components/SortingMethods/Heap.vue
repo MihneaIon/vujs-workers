@@ -16,7 +16,12 @@
       </v-chip-group>
       <div class="my-4 text-subtitle-1">...</div>
     </v-card-text> -->
-    <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
+    <Card
+      :isLoading="isLoading"
+      :startTime="startTime"
+      :endTime="endTime"
+      :difference="difference"
+    ></Card>
   </div>
 </template>
 
@@ -34,6 +39,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    heapRange: {
+      type: String,
+      //default: 1000
+    },
   },
   data() {
     return {
@@ -49,7 +58,7 @@ export default {
   },
   watch: {
     numbers(newValue) {
-      console.log('newVal', typeof(newValue))
+      console.log("newVal", typeof newValue);
       // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
@@ -65,7 +74,7 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeHeapSort", "setEndTimeHeapSort"]),
     async postMessage() {
-      const result = await doHeapSort(this.numbers);
+      const result = await doHeapSort(this.heapRange);
       this.difference = result.difference;
       this.startTime = getTime(result.start);
       this.endTime = getTime(result.end);

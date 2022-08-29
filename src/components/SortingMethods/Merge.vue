@@ -16,7 +16,12 @@
       </v-chip-group>
       <div class="my-4 text-subtitle-1">...</div>
     </v-card-text> -->
-    <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
+    <Card
+      :isLoading="isLoading"
+      :startTime="startTime"
+      :endTime="endTime"
+      :difference="difference"
+    ></Card>
   </div>
 </template>
 
@@ -26,13 +31,17 @@ import { mapGetters, mapMutations } from "vuex";
 import { getTime } from "../../util/formatDate";
 
 export default {
-   components: {
+  components: {
     Card: () => import("../Card.vue"),
   },
   props: {
     numbers: {
       type: Array,
       default: () => [],
+    },
+    mergeRange: {
+      type: String,
+      // default: 1000
     },
   },
   data() {
@@ -50,7 +59,7 @@ export default {
   },
   watch: {
     numbers(newValue) {
-      console.log('newVal merge', typeof(newValue))
+      console.log("newVal merge", typeof newValue);
       // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
@@ -66,7 +75,7 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeMergeSort", "setEndTimeMergeSort"]),
     async postMessage() {
-      const result = await doMergeSort(this.numbers);
+      const result = await doMergeSort(this.mergeRange);
       this.difference = result.difference;
       this.startTime = getTime(result.start);
       this.endTime = getTime(result.end);

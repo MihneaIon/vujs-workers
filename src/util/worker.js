@@ -20,7 +20,7 @@ import heapSort from "@/math/heapSort"
 
 const sortMethods = {
   sortingWithBubbles(numbers) {
-    console.log("Bubble Sort is starting")
+    console.log("Bubble Sort is starting", numbers)
     return bubbleSort(numbers);
   },
   sortingWithMerge(numbers) {

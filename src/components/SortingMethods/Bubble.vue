@@ -17,8 +17,12 @@
       <div class="my-4 text-subtitle-1">...</div>
     </v-card-text> -->
 
-  <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
-
+    <Card
+      :isLoading="isLoading"
+      :startTime="startTime"
+      :endTime="endTime"
+      :difference="difference"
+    ></Card>
   </div>
 </template>
 
@@ -28,7 +32,6 @@ import { doBubbleSort } from "../../util/worker-api";
 import { getTime } from "../../util/formatDate";
 
 export default {
-
   components: {
     Card: () => import("../Card.vue"),
   },
@@ -37,6 +40,9 @@ export default {
     numbers: {
       type: Array,
       default: () => [],
+    },
+    bubbleRange: {
+      type: String,
     },
   },
   data() {
@@ -53,7 +59,7 @@ export default {
   },
   watch: {
     numbers(newValue) {
-      console.log('newVal', typeof(newValue))
+      console.log("newVal", typeof newValue);
       // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
@@ -69,7 +75,7 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeBubbleSort", "setEndTimeBubbleSort"]),
     async postMessage() {
-      const result = await doBubbleSort(this.numbers);
+      const result = await doBubbleSort(this.bubbleRange);
       this.difference = result.difference;
       this.startTime = getTime(result.start);
       this.endTime = getTime(result.end);

@@ -2,10 +2,46 @@
   <div class="text-center">
     <div class="sorts-container text-center">
       <v-row class="custom-row mx-auto" align="center" justify="space-around">
+        <v-col cols="12" sm="6" md="3">
+          <v-text-field
+            v-model="bubbleRange"
+            type="number"
+            :rules="[rules.required, rules.number]"
+            label="Bubble Sort range"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-text-field
+            label="Merge Sort range"
+            placeholder="1000"
+            type="number"
+            :rules="[rules.required, rules.number]"
+            v-model="mergeRange"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-text-field
+            label="Quick Sort range"
+            placeholder="1000"
+            type="number"
+            :rules="[rules.required, rules.number]"
+            v-model="quickRange"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-text-field
+            label="Heap Sort range"
+            placeholder="1000"
+            type="number"
+            :rules="[rules.required, rules.number]"
+            v-model="heapRenge"
+          ></v-text-field>
+        </v-col>
         <v-card class="mx-auto sort-card" outlined>
           <v-card-title> Buuble Sort </v-card-title>
           <Bubble
             :numbers="arrayOfRandomNumbers"
+            :bubbleRange="bubbleRange"
             v-if="getStartComputation"
             @buubleResult="bubbleComputationDone"
           ></Bubble>
@@ -14,6 +50,7 @@
           <v-card-title> Merge Sort </v-card-title>
           <Merge
             :numbers="arrayOfRandomNumbers"
+            :mergeRange="mergeRange"
             v-if="getStartComputation"
             @mergeResult="mergeComputationDone"
           ></Merge>
@@ -22,6 +59,7 @@
           <v-card-title> Quick Sort </v-card-title>
           <Quick
             :numbers="arrayOfRandomNumbers"
+            :quickRange="quickRange"
             v-if="getStartComputation"
             @quickResult="quickComputationDone"
           ></Quick>
@@ -30,6 +68,7 @@
           <v-card-title> Heap Sort </v-card-title>
           <Heap
             :numbers="this.arrayOfRandomNumbers"
+            :heapRange="heapRenge"
             v-if="getStartComputation"
             @heapResult="heapComputationDone"
           ></Heap>
@@ -37,7 +76,9 @@
       </v-row>
     </div>
     <div v-if="ready"></div>
-    <v-btn :disabled="!isValidPress" class="title" @click="start()">Start Computation</v-btn>
+    <v-btn :disabled="!isValidPress" class="title" @click="start()"
+      >Start Computation</v-btn
+    >
     <div>
       {{ time }}
     </div>
@@ -57,6 +98,10 @@ export default {
 
   data() {
     return {
+      bubbleRange: "1000",
+      mergeRange: "1000",
+      quickRange: "1000",
+      heapRenge: "1000",
       arrayOfRandomNumbers: [],
       time: new Date(),
       bubbleIsDone: false,
@@ -64,8 +109,14 @@ export default {
       quickIsDone: false,
       heapIsDone: false,
       isValidPress: true,
-      numberOfNumbers: 0
-
+      numberOfNumbers: 0,
+      rules: {
+        required: (value) => !!value || "Required.",
+        number: (value) => {
+          const patternNumber = /^[1-9]\d*$/;
+          return patternNumber.test(value) || "Invalid input.";
+        },
+      },
     };
   },
   beforeDestroy() {},
@@ -77,16 +128,15 @@ export default {
         this.mergeIsDone &&
         this.quickIsDone &&
         this.heapIsDone
-      ){
+      ) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.isValidPress = true;
-        return true
+        return true;
       }
-      return false
+      return false;
     },
   },
-  watch: {
-  },
+  watch: {},
   mounted() {
     setInterval(() => {
       this.time = new Date();
@@ -95,7 +145,7 @@ export default {
   methods: {
     ...mapMutations(["setStartComutation", "setArrayDimension"]),
     start() {
-      if (this.getStartComputation){
+      if (this.getStartComputation) {
         this.resetInitialForm();
       }
       this.isComputation = true;
@@ -104,7 +154,7 @@ export default {
         .map(() => Math.round(Math.random() * 1000000));
       this.arrayOfRandomNumbers = [...newArray];
       this.setStartComutation(true);
-      this.isValidPress = false
+      this.isValidPress = false;
     },
     bubbleComputationDone(value) {
       this.bubbleIsDone = value;
@@ -118,13 +168,13 @@ export default {
     heapComputationDone(value) {
       this.heapIsDone = value;
     },
-    resetInitialForm(){
+    resetInitialForm() {
       this.bubbleIsDone = false;
       this.mergeIsDone = false;
       this.quickIsDone = false;
       this.heapIsDone = false;
       this.isValidPress = false;
-    }
+    },
   },
 };
 </script>
@@ -135,7 +185,6 @@ export default {
 }
 .custom-row {
   margin: 2rem !important;
-
 }
 .custom-button {
   margin: 5% !important;
@@ -145,12 +194,12 @@ export default {
   border: thin solid #00bfaf;
   border-radius: 20%;
 }
-.sorts-container{
-display: flex;
-justify-content: center;
-padding: 5px 0;
+.sorts-container {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
 }
-.sort-card{
+.sort-card {
   margin: 1%;
 }
 </style>

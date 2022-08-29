@@ -16,7 +16,12 @@
       </v-chip-group>
       <div class="my-4 text-subtitle-1">...</div>
     </v-card-text> -->
-    <Card :isLoading="isLoading" :startTime="startTime" :endTime="endTime" :difference="difference"></Card>
+    <Card
+      :isLoading="isLoading"
+      :startTime="startTime"
+      :endTime="endTime"
+      :difference="difference"
+    ></Card>
   </div>
 </template>
 
@@ -34,6 +39,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    quickRange: {
+      type: String,
+      // default: 1000
+    },
   },
   data() {
     return {
@@ -46,7 +55,7 @@ export default {
   beforeDestroy() {},
   watch: {
     numbers(newValue) {
-      console.log('newVal', typeof(newValue))
+      console.log("newVal", typeof newValue);
       // this.numbers = newValue;
       this.isLoading = true;
       this.postMessage();
@@ -62,7 +71,7 @@ export default {
   methods: {
     ...mapMutations(["setStartTimeQuickSort", "setEndTimeQuickSort"]),
     async postMessage() {
-      const result = await doQuickSort(this.numbers);
+      const result = await doQuickSort(this.quickRange);
       this.difference = result.difference;
       this.startTime = getTime(result.start);
       this.endTime = getTime(result.end);

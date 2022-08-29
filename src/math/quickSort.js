@@ -52,22 +52,22 @@ function quickSort(arr, low, high) {
 }
 
 // Function to print an array
-function printArray(arr, size) {
-  for (let i = 0; i < size; i++) document.write(arr[i] + " ");
+// function printArray(arr, size) {
+//   for (let i = 0; i < size; i++) document.write(arr[i] + " ");
 
-  document.write("<br>");
-}
+//   document.write("<br>");
+// }
 
 // Driver Code
 
 const quickSortMethod = (numbers) => {
-  const newArray = Array(1000000)
+  const newArray = Array(Number(numbers))
         .fill()
-        .map(() => Math.round(Math.random() * 1000000));
-  numbers = newArray;
-  let n = numbers.length;
+        .map(() => Math.round(Math.random() * Number(numbers)));
+  // numbers = newArray;
+  let n = newArray.length;
   const startTime = new Date();
-  quickSort(numbers, 0, n - 1);
+  quickSort(newArray, 0, n - 1);
   const endTime = new Date();
   const object = {
     start: startTime,
