@@ -37,42 +37,50 @@
             v-model="heapRenge"
           ></v-text-field>
         </v-col>
-        <v-card class="mx-auto sort-card" outlined>
-          <v-card-title> Buuble Sort </v-card-title>
-          <Bubble
-            :numbers="arrayOfRandomNumbers"
-            :bubbleRange="bubbleRange"
-            v-if="getStartComputation"
-            @buubleResult="bubbleComputationDone"
-          ></Bubble>
-        </v-card>
-        <v-card class="mx-auto sort-card" outlined>
-          <v-card-title> Merge Sort </v-card-title>
-          <Merge
-            :numbers="arrayOfRandomNumbers"
-            :mergeRange="mergeRange"
-            v-if="getStartComputation"
-            @mergeResult="mergeComputationDone"
-          ></Merge>
-        </v-card>
-        <v-card class="mx-auto sort-card" outlined>
-          <v-card-title> Quick Sort </v-card-title>
-          <Quick
-            :numbers="arrayOfRandomNumbers"
-            :quickRange="quickRange"
-            v-if="getStartComputation"
-            @quickResult="quickComputationDone"
-          ></Quick>
-        </v-card>
-        <v-card class="mx-auto sort-card" outlined>
-          <v-card-title> Heap Sort </v-card-title>
-          <Heap
-            :numbers="this.arrayOfRandomNumbers"
-            :heapRange="heapRenge"
-            v-if="getStartComputation"
-            @heapResult="heapComputationDone"
-          ></Heap>
-        </v-card>
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="mx-auto sort-card" outlined>
+            <v-card-title> Buuble Sort </v-card-title>
+            <Bubble
+              :numbers="arrayOfRandomNumbers"
+              :bubbleRange="bubbleRange"
+              v-if="getStartComputation"
+              @buubleResult="bubbleComputationDone"
+            ></Bubble>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="mx-auto sort-card" outlined>
+            <v-card-title> Merge Sort </v-card-title>
+            <Merge
+              :numbers="arrayOfRandomNumbers"
+              :mergeRange="mergeRange"
+              v-if="getStartComputation"
+              @mergeResult="mergeComputationDone"
+            ></Merge>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="mx-auto sort-card" outlined>
+            <v-card-title> Quick Sort </v-card-title>
+            <Quick
+              :numbers="arrayOfRandomNumbers"
+              :quickRange="quickRange"
+              v-if="getStartComputation"
+              @quickResult="quickComputationDone"
+            ></Quick>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="mx-auto sort-card" outlined>
+            <v-card-title> Heap Sort </v-card-title>
+            <Heap
+              :numbers="this.arrayOfRandomNumbers"
+              :heapRange="heapRenge"
+              v-if="getStartComputation"
+              @heapResult="heapComputationDone"
+            ></Heap>
+          </v-card>
+        </v-col>
       </v-row>
     </div>
     <div v-if="ready"></div>
@@ -143,15 +151,19 @@ export default {
     }, 300);
   },
   methods: {
-    ...mapMutations(["setStartComutation", "setArrayDimension"]),
+    ...mapMutations([
+      "setStartComutation",
+      "setArrayDimension",
+      "setValidPress",
+    ]),
     start() {
       if (this.getStartComputation) {
         this.resetInitialForm();
       }
       this.isComputation = true;
-      const newArray = Array(1000000)
+      const newArray = Array(1)
         .fill()
-        .map(() => Math.round(Math.random() * 1000000));
+        .map(() => Math.round(Math.random() * 1));
       this.arrayOfRandomNumbers = [...newArray];
       this.setStartComutation(true);
       this.isValidPress = false;

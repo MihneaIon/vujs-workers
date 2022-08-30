@@ -3,6 +3,7 @@ const state = {
   selectedWorker: [],
   arrayDimension: 0,
   startComputation: false,
+  isValidPress: true
 };
 
 const getters = {
@@ -24,6 +25,9 @@ const mutations = {
   setArrayDimension(state, result) {
     state.arrayDimension = result;
   },
+  setValidPress(state) {
+    state.isValidPress = true;
+  }
 };
 
 const actions = {};

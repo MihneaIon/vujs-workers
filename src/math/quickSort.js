@@ -51,13 +51,6 @@ function quickSort(arr, low, high) {
   }
 }
 
-// Function to print an array
-// function printArray(arr, size) {
-//   for (let i = 0; i < size; i++) document.write(arr[i] + " ");
-
-//   document.write("<br>");
-// }
-
 // Driver Code
 
 const quickSortMethod = (numbers) => {
