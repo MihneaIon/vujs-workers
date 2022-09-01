@@ -87,7 +87,7 @@
     <v-btn :disabled="!isValidPress" class="title" @click="start()"
       >Start Computation</v-btn
     >
-    <div>
+    <div class="time">
       {{ time }}
     </div>
   </div>
@@ -209,5 +209,8 @@ export default {
 }
 .sort-card {
   margin: 1%;
+}
+.time {
+  margin: 5%;
 }
 </style>
