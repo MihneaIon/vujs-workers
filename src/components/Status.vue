@@ -151,11 +151,7 @@ export default {
     }, 300);
   },
   methods: {
-    ...mapMutations([
-      "setStartComutation",
-      "setArrayDimension",
-      "setValidPress",
-    ]),
+    ...mapMutations(["setStartComutation", "setArrayDimension"]),
     start() {
       if (this.getStartComputation) {
         this.resetInitialForm();
