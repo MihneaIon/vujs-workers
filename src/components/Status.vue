@@ -181,7 +181,6 @@ export default {
       this.mergeIsDone = false;
       this.quickIsDone = false;
       this.heapIsDone = false;
-      // this.isValidPress = false;
     },
   },
 };
