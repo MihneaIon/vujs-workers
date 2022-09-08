@@ -37,6 +37,8 @@ const sortMethods = {
   },
 };
 
-const sdfjiasdfji = {};
+const sdfjiasdfji = {
+  "test":"test"
+};
 
 Comlink.expose(sortMethods);
